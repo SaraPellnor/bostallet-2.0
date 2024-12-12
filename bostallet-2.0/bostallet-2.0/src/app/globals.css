@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #feffb1;
+  --foreground: #0a0a0a;
+  --purple-2: #b414b3;
+  --yellow-1: #feffb1;
+  --purple-1: #7511be;
+  --font: white;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.gradiantBg {
+  background: linear-gradient(to right, #7511be, #b414b3);
+}
