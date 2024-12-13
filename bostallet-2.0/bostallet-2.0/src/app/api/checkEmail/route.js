@@ -1,10 +1,11 @@
+
 import fs from 'fs/promises'; 
 
 export const GET = async (req) => {
  
    try {
      // Läs JSON-filen
-     const filePath = process.cwd() + '/public/data/data.json';
+     const filePath = process.cwd() + '/data/data.json';
      const jsonData = await fs.readFile(filePath, 'utf-8');
  
      const data = JSON.parse(jsonData);

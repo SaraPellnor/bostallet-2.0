@@ -5,6 +5,9 @@ export const content = [
   "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
 ];
 export const theme = {
+  animation: {
+    "spin-slow": "spin 2s linear infinite",
+  },
   extend: {
     colors: {
       background: "var(--background)",
