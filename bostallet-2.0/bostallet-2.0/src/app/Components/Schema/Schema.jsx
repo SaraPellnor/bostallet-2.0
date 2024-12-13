@@ -18,8 +18,7 @@ const Schema = () => {
     };
     getData();
   }, []);
-  const user = "Sara Pellnor"
-
+  const user = "Sara Pellnor";
 
   // Funktion för att generera veckor och rader
   const generateRows = () => {
@@ -32,56 +31,51 @@ const Schema = () => {
       let pass2Count = 0;
 
       rows.push(
-        <tr className=" even:bg-white odd:text-black border-2 border-purple_2" key={i}>
+        <tr className=" text-white" key={i}>
           <td
-            className=" text-white h-12 font-bold pl-8 border-2 border-purple_1 border-l-0 bg-purple_2"
+            className=" rounded-l-lg text-center align-middle text-white font-bold odd:bg-purple_2"
             key={weekNumber}
           >
             {weekNumber}
           </td>
-          <td className=" relative border-2 border-purple_1 ">
+          <td className=" gradiantBg text-center align-middle p-2">
             {schema.map((element, i) =>
               element.weeks.map((week, index) => {
                 if (week.week == weekNumber && week.pass.includes(1)) {
                   pass1Count++; // Räkna antalet personer i pass 1
                   return (
                     <p
-                      className=" pl-1 flex items-center gap-2"
+                      className="p-1 border-b-2 border-yellow_1"
                       key={`${i}-${index}`}
                     >
-                      {element.name}  {element.name == user && <TiDelete className="text-red-700 text-xl" />}
-                    </p> 
-                   
+                      {element.name}
+                    </p>
                   );
                 }
                 return null;
               })
-            )}
-            {/* Visa knapp om färre än 4 */}
-            {pass1Count < 4 && (
-             <IoIosPersonAdd className="text-lime-500 text-4xl absolute bottom-0 right-0 " />
-            )}
+           
+              
+             )}
+             { pass1Count < 4 && <div className="relative h-12 w-full">
+              <IoIosPersonAdd className="text-green-400 text-5xl absolute -right-2 -bottom-2" /></div>}
           </td>
-          <td className=" relative border-2 border-purple_1">
+          <td className=" gradiantBg text-center align-middle p-2">
             {schema.map((element, i) =>
               element.weeks.map((week, index) => {
                 if (week.week == weekNumber && week.pass.includes(2)) {
                   pass2Count++; // Räkna antalet personer i pass 2
                   return (
                     <p
-                       className="pl-1 flex items-center gap-2 "
+                      className=" p-1 border-b-2 border-yellow_1"
                       key={`${i}-${index}`}
                     >
-                      {element.name} {element.name == user && <TiDelete className="text-red-700 text-xl" />}
+                      {element.name}
                     </p>
                   );
                 }
                 return null;
               })
-            )}
-            {/* Visa knapp om färre än 4 */}
-            {pass2Count < 4 && (
-             <IoIosPersonAdd className="text-lime-500 text-4xl absolute bottom-0 right-0 " />
             )}
           </td>
         </tr>
@@ -91,25 +85,27 @@ const Schema = () => {
   };
 
   return (
-    
-      <div className="">
-        <table className="" border="1">
-          <thead className=" bg-purple_1 border-2 border-purple_2 text-white">
-            <tr>
-              <th className=" w-20 border-r-2 border-purple_2 px-5">Vecka</th>
-              <th className=" md:w-[30vw] border-r-2 border-purple_2 px-5">
-                <p>Pass 1</p>
-                <p>18.00-20.30</p>
-              </th>
-              <th className="md:w-[30vw] border-r-2 border-purple_2 px-5">
-                <p>Pass 2</p>
-                <p>20.30-23.00</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>{generateRows()}</tbody>
-        </table>
-      </div>
+    <div className="">
+      <table
+        className=" border-spacing-x-4 border-spacing-y-4 bord border-separate"
+        border="1"
+      >
+        <thead className=" bg-purple_1 text-white">
+          <tr>
+            <th className=" rounded-t-lg w-20  px-5">Vecka</th>
+            <th className="rounded-t-lg md:w-[30vw] px-5">
+              <p>Pass 1</p>
+              <p>18.00-20.30</p>
+            </th>
+            <th className="rounded-t-lg md:w-[30vw] px-5">
+              <p>Pass 2</p>
+              <p>20.30-23.00</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>{generateRows()}</tbody>
+      </table>
+    </div>
   );
 };
 
