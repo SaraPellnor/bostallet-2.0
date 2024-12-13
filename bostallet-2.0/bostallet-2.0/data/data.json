@@ -12,7 +12,8 @@
         "week": 52,
         "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": true
   },
   {
     "name": "Sara Lyngsaa",
@@ -27,7 +28,8 @@
         "week": 52,
         "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": false
   },
   {
     "name": "Daniel",
@@ -44,9 +46,10 @@
       },
       {
         "week": 51,
-        "pass": [1,2]
+        "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": false
   },
   {
     "name": "Zandra Mardell",
@@ -65,7 +68,8 @@
         "week": 1,
         "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": false
   },
   {
     "name": "Jenni",
@@ -80,7 +84,8 @@
         "week": 3,
         "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": false
   },
   {
     "name": "Carin",
@@ -95,7 +100,8 @@
         "week": 2,
         "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": false
   },
   {
     "name": "Marcus",
@@ -110,7 +116,8 @@
         "week": 4,
         "pass": [1, 2]
       }
-    ]
+    ],
+    "admin": false
   },
   {
     "name": "Joel",
@@ -119,12 +126,13 @@
     "weeks": [
       {
         "week": 50,
-        "pass": [ 2]
+        "pass": [2]
       },
       {
         "week": 1,
-        "pass": [ 2]
+        "pass": [2]
       }
-    ]
+    ],
+    "admin": false
   }
 ]

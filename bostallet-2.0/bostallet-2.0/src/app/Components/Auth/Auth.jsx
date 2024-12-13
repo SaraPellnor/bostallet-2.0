@@ -9,7 +9,7 @@ const Auth = () => {
   const handleSubmit = async () => {
     try {
       
-      const res = await fetch("/api/checkEmail/", {
+      const res = await fetch("/api/user/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

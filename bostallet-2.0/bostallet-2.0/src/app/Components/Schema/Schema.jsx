@@ -25,7 +25,7 @@ const Schema = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("/api/checkEmail/");
+        const res = await fetch("/api/schema/");
         const data = await res.json();
         setSchema(data);
       } catch (error) {
