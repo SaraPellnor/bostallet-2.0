@@ -106,8 +106,8 @@ const AdminPanel = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div className="flex flex-col justify-center gap-3 text-xl">
-      <Header />
+    <>  <Header />
+    <div className="flex flex-col justify-center gap-3 text-xl mt-16">
       <div className=" text-center pt-2 font-bold text-2xl">
         Lägg till ny medarbetare
       </div>
@@ -255,6 +255,7 @@ const AdminPanel = () => {
         )
       )}
     </div>
+    </>
   );
 };
 

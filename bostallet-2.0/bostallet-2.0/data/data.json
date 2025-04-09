@@ -1,74 +1,17 @@
 [
   {
-    "password": "123",
-    "weeks": [
-      {
-        "week": 3,
-        "pass": [
-          2
-        ]
-      },
-      {
-        "week": 7,
-        "pass": [
-          1,
-          2
-        ]
-      },
-      {
-        "week": 10,
-        "pass": [
-          1,
-          2
-        ]
-      },
-      {
-        "week": 9,
-        "pass": [
-          2,
-          1
-        ]
-      },
-      {
-        "week": 11,
-        "pass": [
-          1,
-          2
-        ]
-      },
-      {
-        "week": 12,
-        "pass": [
-          2,
-          1
-        ]
-      },
-      {
-        "week": 13,
-        "pass": [
-          1,
-          2
-        ]
-      },
-      {
-        "week": 14,
-        "pass": [
-          2,
-          1
-        ]
-      }
-    ],
-    "admin": true,
-    "name": "sara pellnor",
-    "mobile": "0730442444",
-    "email": "sara.ahlquist@hotmail.com"
-  },
-  {
     "name": "Daniel",
     "password": "123",
-    "email": "sara.ahlquist@hotmail.com",
+    "email": "daniel.ahlquist@hotmail.com",
     "mobile": "07304424444",
     "weeks": [
+      {
+        "week": 15,
+        "pass": [
+          2,
+          1
+        ]
+      },
       {
         "week": 1,
         "pass": [
@@ -89,9 +32,15 @@
           1,
           2
         ]
+      },
+      {
+        "week": 20,
+        "pass": [
+          1
+        ]
       }
     ],
-    "admin": false
+    "admin": true
   },
   {
     "name": "Jenni",
@@ -99,6 +48,13 @@
     "email": "sara.ahlquist@hotmail.com",
     "mobile": 730442444,
     "weeks": [
+      {
+        "week": 15,
+        "pass": [
+          1,
+          2
+        ]
+      },
       {
         "week": 1,
         "pass": [
@@ -123,6 +79,34 @@
     "mobile": 730442444,
     "weeks": [
       {
+        "week": 15,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
+        "week": 1,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
+        "week": 50,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
+        "week": 51,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
         "week": 52,
         "pass": [
           1,
@@ -146,9 +130,8 @@
     "mobile": 730442444,
     "weeks": [
       {
-        "week": 3,
+        "week": 15,
         "pass": [
-          1,
           2
         ]
       },
@@ -202,6 +185,35 @@
     "name": "Sara Ahlquist Pellnor",
     "email": "sara.ahlquist@hotmail.com",
     "mobile": "0730442444",
-    "weeks": []
+    "weeks": [
+      {
+        "week": 15,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
+        "week": 1,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
+        "week": 50,
+        "pass": [
+          1,
+          2
+        ]
+      },
+      {
+        "week": 51,
+        "pass": [
+          1,
+          2
+        ]
+      }
+    ]
   }
 ]

@@ -43,6 +43,24 @@ export const handleLogIn = async (
   }
 };
 
+export const removeOldWeeks = async (week) => {
+  try {
+    const res = await fetch("/api/user/", {
+      method: "PUT",   
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ week: week }), // Skicka e-postadressen
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+
+
 export const handleUser = async (week, pass, action) => {
   try {
     const res = await fetch("/api/calendar/", {

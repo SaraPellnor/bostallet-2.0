@@ -33,13 +33,20 @@ export const POST = async (req) => {
 
     const data = JSON.parse(jsonData);
     console.log(data);
-    
-    const emailExists = data.some((item) => item.email === email);
 
-    const adminPassword = process.env.USER_PASSWORD;
-    const isPassword = adminPassword === password;
-    if (emailExists && isPassword) {
+    const emailExists = data.some((item) => item.email === email);
       const userObject = data.find((item) => item.email === email);
+
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    const userPassword = process.env.USER_PASSWORD;
+
+    const isAdminPassword = adminPassword === password;
+    const isUserPassword = userPassword === password;
+
+    const validUser = userObject.admin && isAdminPassword || !userObject.admin && isUserPassword;
+console.log("validUser", validUser);
+
+    if (emailExists && validUser) {
       const cookieStore = await cookies();
       userObject &&
         cookieStore.set(
@@ -84,6 +91,40 @@ export const POST = async (req) => {
     );
   }
 };
+
+
+export const PUT = async (req) => {
+  const { week } = await req.json(); // Ex: { "week": 1 eller 15 }
+
+  try {
+    const filePath = process.cwd() + "/data/data.json";
+    const jsonData = await fs.readFile(filePath, "utf-8");
+    const data = JSON.parse(jsonData);
+
+    // Räkna ut föregående vecka
+    const weekToRemove = week > 1 ? week - 1 : 52;
+
+    // Gå igenom alla användare och ta bort just den veckan
+    data.forEach((user) => {
+      user.weeks = user.weeks.filter((item) => item.week !== weekToRemove);
+    });
+
+    // Spara ändrade data tillbaka till filen
+    await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf-8");
+
+    return new Response(
+      JSON.stringify({ message: `Vecka ${weekToRemove} borttagen för alla användare.` }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Fel vid rensning:", error);
+    return new Response(
+      JSON.stringify({ error: "Fel vid läsning eller skrivning av filen." }),
+      { status: 500 }
+    );
+  }
+};
+
 
 export const DELETE = async () => {
   try {

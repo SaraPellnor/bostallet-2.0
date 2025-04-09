@@ -6,7 +6,7 @@ import { getISOWeek, getWeekYear } from "date-fns";
 import Loading from "../Loading/Loading";
 import childrenHolidayWeeks from "../../utils/getHolidaysWeek";
 import { useUserContext } from "../../context/UserContext";
-import { handleSchema, fetchData } from "../../functions/functions";
+import { handleSchema, fetchData, removeOldWeeks } from "../../functions/functions";
 import Header from "../Header/Header";
 const Calendar = () => {
   const {
@@ -27,6 +27,7 @@ const Calendar = () => {
 
   // Hämta schemat från API
   useEffect(() => {
+    removeOldWeeks(getISOWeek(new Date()))
     setHollidays(childrenHolidayWeeks);
     setCurrentWeek(getISOWeek(new Date()));
     setCurrentYear(getWeekYear(new Date()));
@@ -39,7 +40,6 @@ const Calendar = () => {
     let userIn = false;
 
     const participants = userData.flatMap((element) => {
-      
       return element.weeks
         .filter(
           (week) => week.week === weekNumber && week.pass.includes(passNumber)
@@ -51,18 +51,21 @@ const Calendar = () => {
         });
     });
     return (
-      <td className="relative rounded-xl pb-[50px] text-center align-middle p-2">
-        {participants.map((name, index) => (
-          <p
-            className={`p-1 border-b-2 border-yellow_1 ${
-              name === user ? "text-green-400" : ""
-            }`}
-            key={index}
-          >
-            {name}
-          </p>
-        ))}
-        {passCount < 4 || userIn ? (
+      <div className={`${passCount>3 && "opacity-50"} pb-5 px-5 py-3`}>
+        <div className="bg-purple_2 w-full px-2 flex justify-between">
+          {passNumber == 1 ? (
+            <>
+              <p>PASS 1</p>
+              <p>18.00-20.30</p>
+            </>
+          ) : (
+            <>
+              <p>PASS 2</p>
+              <p>20.30-23.00</p>
+            </>
+          )}
+        </div>
+        {!userIn && passCount < 4 && (
           <div
             onClick={() =>
               handleSchema(
@@ -73,66 +76,77 @@ const Calendar = () => {
                 user
               )
             }
-            className="cursor-pointer flex justify-end items-center absolute bottom-0 right-0 h-12 w-full"
+            className="cursor-pointer flex items-center h-12 p-1 border-b-2 border-yellow_1"
           >
-            {userIn ? (
-              <>
+            <p className="text-green-400 sm:text-[20px] text-[15px]">
+              Lägg till mig
+            </p>
+            <IoIosPersonAdd
+              title="Klicka här för att lägga till dig på passet"
+              className="text-green-400 text-3xl"
+            />
+          </div>
+        )}
+        {participants.map((name, index) => (
+          <div
+            className={`px-2 flex items-center p-1 border-b-2 border-yellow_1 ${
+              name === user ? "text-green-400" : ""
+            }`}
+            key={index}
+          >
+            <p className="w-2/3"> {name}</p>
+            {name == user && (
+              <div
+                onClick={() =>
+                  handleSchema(
+                    setMessage,
+                    weekNumber,
+                    passNumber,
+                    userIn ? "remove" : "add",
+                    user
+                  )
+                }
+                className="cursor-pointer flex justify-end items-center h-12 w-full"
+              >
                 <p className="text-red-400 sm:text-[20px] text-[15px]">
-                  Ta bort
+                  Ta bort mig
                 </p>
                 <TiDelete
                   title="Klicka här för att ta bort dig ifrån passet"
-                  className="text-red-400 text-5xl"
+                  className="text-red-400 text-3xl"
                 />
-              </>
-            ) : (
-              passCount < 4 && (
-                <>
-                  <p className="text-green-400 sm:text-[20px] text-[15px]">
-                    Lägg till
-                  </p>
-                  <IoIosPersonAdd
-                    title="Klicka här för att lägga till dig på passet"
-                    className="text-green-400 text-5xl"
-                  />
-                </>
-              )
+              </div>
             )}
           </div>
-        ) : (
-          <div className="flex justify-end items-center absolute bottom-0 right-0 h-12 w-full">
+        ))}
+        {passCount > 3 && (
+          <div className="flex justify-end items-center h-12 w-full">
             <p className="self-center m-auto text-yellow-400 font-bold">
               FULLT
             </p>
           </div>
         )}
-      </td>
+      </div>
     );
   };
 
   // Generera rader för tabellen
   const generateRows = () => {
-    return Array.from({ length: 30 }, (_, i) => {
+    return Array.from({ length: 26 }, (_, i) => {
       const weekNumber = ((currentWeek + i - 1) % 52) + 1;
-
       return (
-        <React.Fragment key={weekNumber}>
+        <div className="mb-3" key={weekNumber}>
           {weekNumber == 1 && i > 0 && (
-            <tr>
-              <th
-                colSpan="3"
-                className="bg-purple_2 p-1 rounded-lg text-center text-white text-2xl"
-              >
-                {currentYear + 1}
-              </th>
-            </tr>
+            <p className="gradiantBg p-4 text-white text-2xl">
+              {currentYear + 1}
+            </p>
           )}
 
-          <tr
-            className="text-white text-xl bg-black even:bg-opacity-70"
+          <div
+            className="text-white text-xl bg-black"
             key={weekNumber}
           >
-            <td className="rounded-l-lg text-center align-middle text-black text-3xl font-bold bg-white">
+            <div className="text-2xl font-bold">
               {hollidays.some(
                 (item) =>
                   item.fact.week == weekNumber && item.fact.year == currentYear
@@ -144,20 +158,20 @@ const Calendar = () => {
                       item.fact.year == currentYear
                   )
                   .map((item, index) => (
-                    <div key={index}>
-                      <p>{weekNumber}</p>
-                      <p className="hidden md:block">{item.holiday}</p>
+                    <div className="p-3" key={index}>
+                      <p> Fredag V. {weekNumber}</p>
+                      <p className="text-green-400 font-thin">{item.holiday}</p>
                     </div>
                   ))
               ) : (
-                <p>{weekNumber}</p>
+                <p className="p-3">Fredag V. {weekNumber}</p>
               )}
-            </td>
+            </div>
 
             {renderPassCell(weekNumber, 1)}
             {renderPassCell(weekNumber, 2)}
-          </tr>
-        </React.Fragment>
+          </div>
+        </div>
       );
     });
   };
@@ -165,36 +179,12 @@ const Calendar = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div>
+    <div className="w-full max-w-[800px] h-full mx-5 flex flex-col">
       <Header />
-      <div className=" gradiantBg w-full flex justify-center">
-        <table className="max-w-[700px] border-none border-spacing-x-4 border-spacing-y-4 border border-separate">
-          <thead className="bg-yellow_1 font-bold text-black">
-            <tr>
-              <th className="rounded-t-lg w-20 px-5">VECKA</th>
-              <th className="rounded-t-lg md:w-[30vw] px-5">
-                <p>PASS 1</p>
-                <p>18.00-20.30</p>
-              </th>
-              <th className="rounded-t-lg md:w-[30vw] px-5">
-                <p>PASS 2</p>
-                <p>20.30-23.00</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td
-                colSpan="3"
-                className="bg-purple_2 p-1 rounded-lg text-center text-white text-2xl"
-              >
-                {currentYear}
-              </td>
-            </tr>
-            {generateRows()}
-          </tbody>
-        </table>
-      </div>
+     {currentWeek != 52 && <p className="gradiantBg p-4 text-white text-2xl">
+        {currentYear}
+      </p>}
+      {generateRows()}
     </div>
   );
 };
